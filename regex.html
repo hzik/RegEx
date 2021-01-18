@@ -79,6 +79,10 @@
 					valid = element.config.valid?element.config.valid:"";
 					invalid = element.config.invalid?element.config.invalid:"";
 					getTextValue(element_codename);  
+					
+					CustomElement.observeElementChanges([element_codename], (changedElementCodenames) => {
+						getTextValue(changedElementCodenames[0]);
+					})
 				  }
 				  else {
 				    showError("There are not all parameters for this custom element specified. Please check documentation of this custom element.");
@@ -97,11 +101,7 @@
             }
         }
       
-        initCustomElement();
-		
-		CustomElement.observeElementChanges(["name"], (changedElementCodenames) => {
-			getTextValue(changedElementCodenames[0]);
-		})
+        initCustomElement();		
 
 		function getTextValue(codename) {
 			CustomElement.getElementValue(codename, (value) => {
