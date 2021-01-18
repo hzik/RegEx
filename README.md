@@ -6,8 +6,8 @@ This custom element allows you to add regular expression for your Text element.
 
 ## Setup
 
-1. Configure a new custome element in your content type (either directly below the *Text* element if you want to give additional information to your editor or to separate content group)
-2. Make the custome element *Required*
+1. Configure a new custom element in your content type
+2. Make the custom element *Required*
 3. Specify the *Text* element the regular expression is for (in both "Allow the custom element to read values of specific elements" and its codename as "element" JSON parameter)
 4. Add additional parameters
 
