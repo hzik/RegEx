@@ -1,6 +1,6 @@
 # RegEx
 
-This custom element allows you to add regular expression for your Text element.
+With this custom element you can extend the Text element by a regular expression for its validation.
 
 ![screenshot](https://amend.cz/regex.gif)
 
@@ -9,8 +9,8 @@ This custom element allows you to add regular expression for your Text element.
 1. Configure a new custom element in your content type
 2. Make the custom element *Required*
 3. Specify the *Text* element the regular expression is for (in both "Allow the custom element to read values of specific elements" and its codename as "element" JSON parameter)
-4. Specify a regular expression you want to test agains the *Text* element in the "regex" parameter
-5. (optional) Add additional parameters (in "valid" and "invalid" paramters for messages that get displayed when the regular expression match/doesn't match the *Text* value)
+4. Specify a regular expression you want to test against the *Text* element in the "regex" parameter
+5. (optional) Add additional parameters (in "valid" and "invalid" parameters for messages that get displayed when the regular expression match/doesn't match the *Text* value)
 
 ![screenshot](https://amend.cz/configuration.png)
 
