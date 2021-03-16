@@ -7,11 +7,11 @@
 	<!-- Include jQuery library -->
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 	
-    <!-- Include the Custom Elements API-->
-    <script src="https://app.kontent.ai/js-api/custom-element/v1/custom-element.min.js"></script>
+	<!-- Include the Custom Elements API-->
+	<script src="https://app.kontent.ai/js-api/custom-element/v1/custom-element.min.js"></script>
 
-    <!-- Custom element CSS styles -->
-    <style>
+	<!-- Custom element CSS styles -->
+	<style>
 		/* We recommended you always set margin to zero to avoid problems when displaying the element in UI */
 		@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic);
 		html{
@@ -35,31 +35,31 @@
 			height: 100%;
 			opacity: 0.1;
 		}
-    </style>
+	</style>
 </head>
 <body>
 	<div class="disabled_overlay"></div>
 	<div id="result"></div>
 
-    <!-- Custom logic of the Custom element -->
-    <script>
-        var isDisabled = false;
-        var element_codename = "";
+	<!-- Custom logic of the Custom element -->
+	<script>
+	var isDisabled = false;
+	var element_codename = "";
 		var regEx = "";
 		var valid = "";
 		var invalid = "";
-      
-        function updateDisabled(disabled) {
-            isDisabled = disabled;
-            if (disabled) {
-                $('.disabled_overlay').show();
-            }
-            else {
-                $('.disabled_overlay').hide();
-            }
-        }
-      
-        function updateSize() {
+
+	function updateDisabled(disabled) {
+	    isDisabled = disabled;
+	    if (disabled) {
+		$('.disabled_overlay').show();
+	    }
+	    else {
+		$('.disabled_overlay').hide();
+	    }
+	}
+
+	function updateSize() {
 			var height = 100;
 			try {
 				height = parseInt($("html").height());		
@@ -68,18 +68,18 @@
 			}
 			CustomElement.setHeight(height);
 		}
-      
-        function initCustomElement() {
-            try {
-                CustomElement.init((element, _context) => {
-                  // Setup with initial value and disabled state
+
+	function initCustomElement() {
+	    try {
+		CustomElement.init((element, _context) => {
+		  // Setup with initial value and disabled state
 				  if (element.config.element && element.config.regex) {
 					element_codename = element.config.element;
 					regEx = element.config.regex;
 					valid = element.config.valid?element.config.valid:"";
 					invalid = element.config.invalid?element.config.invalid:"";
 					getTextValue(element_codename);  
-					
+
 					CustomElement.observeElementChanges([element_codename], (changedElementCodenames) => {
 						getTextValue(changedElementCodenames[0]);
 					})
@@ -87,21 +87,21 @@
 				  else {
 				    showError("There are not all parameters for this custom element specified. Please check documentation of this custom element.");
 				  }
-                  updateDisabled(element.disabled);
-                  updateSize();
-                });
-                // React when the disabled state changes (e.g. when publishing the item)
-                CustomElement.onDisabledChanged(updateDisabled);
+		  updateDisabled(element.disabled);
+		  updateSize();
+		});
+		// React when the disabled state changes (e.g. when publishing the item)
+		CustomElement.onDisabledChanged(updateDisabled);
 				setTimeout(updateSize, 1000);
-            } catch (err) {
-                // Initialization with the Custom elements API failed 
-                // (page displayed outside of the Kentico Cloud UI)
-                console.error(err);
-                updateDisabled(true);
-            }
-        }
-      
-        initCustomElement();		
+	    } catch (err) {
+		// Initialization with the Custom elements API failed 
+		// (page displayed outside of the Kentico Cloud UI)
+		console.error(err);
+		updateDisabled(true);
+	    }
+	}
+
+	initCustomElement();		
 
 		function getTextValue(codename) {
 			CustomElement.getElementValue(codename, (value) => {
@@ -119,14 +119,14 @@
 				$("#result").html(invalid);
 				CustomElement.setValue(null);
 			}
-            updateSize();
+	    updateSize();
 		}
-		
+
 		function showError(message) {
 			$("#result").html(message);
 			updateSize();
 		}
-      
-    </script>
+
+	</script>
 </body>
 </html>
