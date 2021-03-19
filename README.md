@@ -1,4 +1,4 @@
-# RegEx
+# RegEx extension
 
 With this custom element you can extend the Text element by a regular expression for its validation.
 
