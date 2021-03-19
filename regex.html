@@ -9,55 +9,55 @@
 
     <!-- Custom element CSS styles -->
     <style>
-		/* We recommended you always set margin to zero to avoid problems when displaying the element in UI */
-		@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic);
-		html{
-		  font-family:'Source Sans Pro', sans-serif;
-		  -ms-text-size-adjust:100%;
-		  -webkit-text-size-adjust:100%;
-		}
-		body {
-			margin: 0;
-			padding: 10px;
-		}
-		
-		.disabled_overlay {
-			position: fixed;
-			background-color: #777;
-			z-index: 10;
-			cursor: not-allowed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			opacity: 0.1;
-		}
+	/* We recommended you always set margin to zero to avoid problems when displaying the element in UI */
+	@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic);
+	html{
+	  font-family:'Source Sans Pro', sans-serif;
+	  -ms-text-size-adjust:100%;
+	  -webkit-text-size-adjust:100%;
+	}
+	body {
+		margin: 0;
+		padding: 10px;
+	}
+
+	.disabled_overlay {
+		position: fixed;
+		background-color: #777;
+		z-index: 10;
+		cursor: not-allowed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0.1;
+	}
     </style>
 </head>
 <body>
 	<div class="disabled_overlay" id="disabled_overlay"></div>
 	<div id="result"></div>
 
-    <!-- Custom logic of the Custom element -->
-    <script>
-        var isDisabled = false;
-        var element_codename = "";
+	<!-- Custom logic of the Custom element -->
+	<script>
+	var isDisabled = false;
+	var element_codename = "";
 		var regEx = "";
 		var valid = "";
 		var invalid = "";
-      
-        function updateDisabled(disabled) {
-            isDisabled = disabled;
+
+	function updateDisabled(disabled) {
+	    isDisabled = disabled;
 			var overlay = document.getElementById("disabled_overlay");
-            if (disabled) {
-                overlay.style.display = "none";
-            }
-            else {
-                overlay.style.display = "block";;
-            }
-        }
-      
-        function updateSize() {
+	    if (disabled) {
+		overlay.style.display = "none";
+	    }
+	    else {
+		overlay.style.display = "block";;
+	    }
+	}
+
+	function updateSize() {
 			var height = 100;
 			try {
 				height = parseInt(document.documentElement.scrollHeight);		
@@ -66,18 +66,18 @@
 			}
 			CustomElement.setHeight(height);
 		}
-      
-        function initCustomElement() {
-            try {
-                CustomElement.init((element, _context) => {
-                  // Setup with initial value and disabled state
+
+	function initCustomElement() {
+	    try {
+		CustomElement.init((element, _context) => {
+		  // Setup with initial value and disabled state
 				  if (element.config.element && element.config.regex) {
 					element_codename = element.config.element;
 					regEx = element.config.regex;
 					valid = element.config.valid?element.config.valid:"";
 					invalid = element.config.invalid?element.config.invalid:"";
 					getTextValue(element_codename);  
-					
+
 					CustomElement.observeElementChanges([element_codename], (changedElementCodenames) => {
 						getTextValue(changedElementCodenames[0]);
 					})
@@ -85,21 +85,21 @@
 				  else {
 				    showError("There are not all parameters for this custom element specified. Please check documentation of this custom element.");
 				  }
-                  updateDisabled(element.disabled);
-                  updateSize();
-                });
-                // React when the disabled state changes (e.g. when publishing the item)
-                CustomElement.onDisabledChanged(updateDisabled);
+		  updateDisabled(element.disabled);
+		  updateSize();
+		});
+		// React when the disabled state changes (e.g. when publishing the item)
+		CustomElement.onDisabledChanged(updateDisabled);
 				setTimeout(updateSize, 1000);
-            } catch (err) {
-                // Initialization with the Custom elements API failed 
-                // (page displayed outside of the Kentico Cloud UI)
-                console.error(err);
-                updateDisabled(true);
-            }
-        }
-      
-        initCustomElement();		
+	    } catch (err) {
+		// Initialization with the Custom elements API failed 
+		// (page displayed outside of the Kentico Cloud UI)
+		console.error(err);
+		updateDisabled(true);
+	    }
+	}
+
+	initCustomElement();		
 
 		function getTextValue(codename) {
 			CustomElement.getElementValue(codename, (value) => {
@@ -117,14 +117,14 @@
 				document.getElementById("result").innerHTML = invalid;
 				CustomElement.setValue(null);
 			}
-            updateSize();
+	    updateSize();
 		}
-		
+
 		function showError(message) {
 			document.getElementById("result").innerHTML = message;
 			updateSize();
 		}
-      
-    </script>
+
+	</script>
 </body>
 </html>
